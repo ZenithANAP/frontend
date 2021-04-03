@@ -1,9 +1,28 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 $enable-shadows: true;
@@ -17,6 +36,7 @@ $theme-colors: (
   "secondary": #79d1c3,
   "tertiary": #c9fdd7,
   "danger": #ff0033,
+  "pinky": #e26c85,
 );
 
 $font-family-sans-serif:
@@ -36,3 +56,4 @@ $font-family-sans-serif:
   "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
 @import "bootstrap";
+@import "animate.css";

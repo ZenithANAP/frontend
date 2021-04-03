@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import "react-notifications/lib/notifications.css";
 import "./index.scss";
+import { NotificationContainer } from "react-notifications";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
@@ -14,10 +16,11 @@ ReactDOM.render(
     <Provider store={store}>
       <HashRouter>
         <App />
+        <NotificationContainer />
       </HashRouter>
     </Provider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("app")
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -1,6 +1,8 @@
 import * as actions from "@redux/actions";
 
-const templateReducer = (state = {}, action) => {
+const initState = {};
+
+const templateReducer = (state = initState, action) => {
   switch (action.type) {
     case actions.GREET:
       return state;

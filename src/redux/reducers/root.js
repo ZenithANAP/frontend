@@ -1,9 +1,9 @@
-import templateReducer from "./template";
+import authReducer from "./auth";
 
 const { combineReducers } = require("redux");
 
 const rootReducer = combineReducers({
-  templateReducer,
+  authReducer,
 });
 
 export default rootReducer;

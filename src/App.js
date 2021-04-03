@@ -1,6 +1,16 @@
+import { Login } from "@components/auth/Login";
+import { Register } from "@components/auth/Register";
+import { KnowMore } from "@components/shared/KnowMore";
+import { Landing } from "@components/shared/Landing";
 import { Loading } from "@components/shared/Loading";
+import { auth } from "@config/firebase config";
+import server from "@config/server";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect, Route, Switch } from "react-router";
+import "./App.scss";
+import { NotificationManager } from "react-notifications";
+import createToken from "@config/headerCreator";
 
 export class App extends Component {
   constructor(props) {
@@ -9,6 +19,8 @@ export class App extends Component {
     this.state = {
       authenticated: null,
       loading: true,
+      completed_registration_step2: null,
+      user_type: null,
     };
   }
 
@@ -16,7 +28,7 @@ export class App extends Component {
   user = {
     uid: string
     email: string
-    phone: tel 
+    hone: tel 
     aadhaar_card: number
     address: string
     user_type: enum(donor, receiver)
@@ -96,13 +108,118 @@ export class App extends Component {
   
   */
 
+  componentDidMount() {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        server
+          .get("getType", await createToken())
+          .then(({ data }) => {
+            this.setState({
+              loading: false,
+              authenticated: true,
+              user_type: data.type,
+              completed_registration_step2: data.hasData,
+            });
+          })
+          .catch((er) => {
+            NotificationManager.error("Error fetching data");
+            auth.signOut();
+          });
+      } else {
+        this.setState({ loading: false, authenticated: false });
+      }
+    });
+  }
+
   render() {
     if (this.state.loading) return <Loading />;
-    return (
-      <div>
-        <p>Welcome to plasma</p>
-      </div>
-    );
+    if (this.state.authenticated) {
+      // authenticated
+      if (this.state.user_type === "donor") {
+        // donor
+        if (this.state.completed_registration_step2) {
+          // completed registration
+          return (
+            <div>
+              <p>Welcome to plasma donor</p>
+              <button
+                className="btn btn-primary"
+                onClick={() => auth.signOut()}
+              >
+                Log out
+              </button>
+            </div>
+          );
+        } else {
+          // not completed registration
+          return (
+            <div>
+              <p>Complete registration donor</p>
+              <button
+                className="btn btn-primary"
+                onClick={() => auth.signOut()}
+              >
+                Log out
+              </button>
+            </div>
+          );
+        }
+      } else if (this.state.user_type === "receiver") {
+        // receiver
+        if (this.state.completed_registration_step2) {
+          // completed registration
+          return (
+            <div>
+              <p>Welcome to plasma receiver</p>
+              <button
+                className="btn btn-primary"
+                onClick={() => auth.signOut()}
+              >
+                Log out
+              </button>
+            </div>
+          );
+        } else {
+          // not completed registration
+          return (
+            <div>
+              <p>Complete registration receiver</p>
+              <button
+                className="btn btn-primary"
+                onClick={() => auth.signOut()}
+              >
+                Log out
+              </button>
+            </div>
+          );
+        }
+      } else {
+        return (
+          <div className="">
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                NotificationManager.error("An unexpected error has occured");
+                auth.signOut();
+              }}
+            >
+              goBack
+            </button>
+          </div>
+        );
+      }
+    } else {
+      // not authenticated
+      return (
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/knowmore" component={KnowMore} />
+          <Redirect to="/" />
+        </Switch>
+      );
+    }
   }
 }
 

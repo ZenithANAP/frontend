@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap");
+
+.landing-img {
+  height: 100%;
+  width: 100%;
+}
+
+.row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.home-no-padding {
+  padding: 0 !important;
+}
+
+.home-quote {
+  position: relative;
+  padding-left: 30px;
+  font-weight: 900;
+  color: rgb(53, 34, 65);
+  padding: 1em;
+  margin: 1em;
+  max-width: 33em;
+  font-size: 24px;
+  &:before {
+    content: "“";
+    font-family: serif;
+    position: absolute;
+    right: 100%;
+    font-size: 60px;
+    line-height: 0px;
+    top: 50px;
+    color: rgb(231, 80, 113);
+  }
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 100%;
+    width: 80px;
+    height: 5px;
+    background: #e26c85;
+    left: 1em;
+  }
+}
+
+.know-more-container {
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: -webkit-box;
+  display: flex;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+}
+
+.know-more-container #faq .card {
+  margin-bottom: 30px;
+  border: 0;
+}
+
+.know-more-container #faq .card .card-header {
+  border: 0;
+  -webkit-box-shadow: 0 0 20px 0 rgba(213, 213, 213, 0.5);
+  box-shadow: 0 0 20px 0 rgba(213, 213, 213, 0.5);
+  border-radius: 2px;
+  padding: 0;
+}
+
+.know-more-container #faq .card .card-header .btn-header-link {
+  color: #fff;
+  display: block;
+  text-align: left;
+  // background: #8b92be;
+  background: rgb(53, 34, 65);
+  padding: 20px;
+  font-weight: bold;
+}
+
+.know-more-container #faq .card .card-header .btn-header-link:after {
+  content: "-";
+  font-family: "Font Awesome 5 Free";
+  font-weight: bold;
+  float: right;
+}
+
+.know-more-container #faq .card .card-header .btn-header-link.collapsed {
+  background: #eccbd2;
+  // color: rgb(53, 34, 65);
+  color: white;
+}
+
+.know-more-container #faq .card .card-header .btn-header-link.collapsed:after {
+  content: "+";
+  font-weight: bold;
+}
+
+.know-more-container #faq .card .collapse {
+  // background: #aab5f5;
+  line-height: 30px;
+}
+
+.know-more-container #faq .card .collapse {
+  border: 0;
+}
+
+.know-more-container #faq .card .collapse.show {
+  // background: #aab5f5;
+  line-height: 30px;
+  // color: white;
+}
