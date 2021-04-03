@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import KnowMoreImage from "@assets/landingPagewebp.webp";
-
 export class KnowMore extends Component {
   render() {
     return (

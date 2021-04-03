@@ -11,6 +11,9 @@ import { Redirect, Route, Switch } from "react-router";
 import "./App.scss";
 import { NotificationManager } from "react-notifications";
 import createToken from "@config/headerCreator";
+import { CompleteDonorRegistration } from "@components/donor/CompleteDonorRegistration";
+import { Header } from "@components/shared/Header";
+import { CompleteReceiverRegistration } from "@components/recevier/CompleteReceiverRegistration";
 
 export class App extends Component {
   constructor(props) {
@@ -141,26 +144,18 @@ export class App extends Component {
           // completed registration
           return (
             <div>
+              <Route component={(props) => <Header {...props} />} />
               <p>Welcome to plasma donor</p>
-              <button
-                className="btn btn-primary"
-                onClick={() => auth.signOut()}
-              >
-                Log out
-              </button>
             </div>
           );
         } else {
           // not completed registration
           return (
             <div>
-              <p>Complete registration donor</p>
-              <button
-                className="btn btn-primary"
-                onClick={() => auth.signOut()}
-              >
-                Log out
-              </button>
+              <Route component={(props) => <Header {...props} />} />
+              <Route
+                component={(props) => <CompleteDonorRegistration {...props} />}
+              />
             </div>
           );
         }
@@ -170,26 +165,16 @@ export class App extends Component {
           // completed registration
           return (
             <div>
+              <Route component={(props) => <Header {...props} />} />
               <p>Welcome to plasma receiver</p>
-              <button
-                className="btn btn-primary"
-                onClick={() => auth.signOut()}
-              >
-                Log out
-              </button>
             </div>
           );
         } else {
           // not completed registration
           return (
             <div>
-              <p>Complete registration receiver</p>
-              <button
-                className="btn btn-primary"
-                onClick={() => auth.signOut()}
-              >
-                Log out
-              </button>
+              <Route component={(props) => <Header {...props} />} />
+              <CompleteReceiverRegistration />
             </div>
           );
         }
