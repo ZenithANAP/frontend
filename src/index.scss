@@ -5,6 +5,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.notification {
+  box-shadow: none !important;
+  border-radius: 0.4rem;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
