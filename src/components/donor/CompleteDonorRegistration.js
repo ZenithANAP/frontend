@@ -165,14 +165,15 @@ export class CompleteDonorRegistration extends Component {
                 htmlFor="address"
                 style={{ fontSize: "1.5rem", color: "#201140" }}
               >
-                Address:
+                City:
               </label>
-              <textarea
+              <input
+                type="text"
                 className="form-control"
                 id="address"
                 name="address"
-                placeholder="Enter your address: "
-                rows="3"
+                placeholder="Enter your city: "
+                // rows="3"
                 onChange={this.handleInputChange}
               />
             </div>
