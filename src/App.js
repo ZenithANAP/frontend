@@ -16,6 +16,8 @@ import CompleteDonorRegistration2 from "@components/donor/CompleteDonorRegistrat
 import { Header } from "@components/shared/Header";
 import CompleteReceiverRegistration from "@components/recevier/CompleteReceiverRegistration";
 import CompleteReceiverRegistration2 from "@components/recevier/CompleteReceiverRegistration2";
+import { DonorHome } from "@components/donor/DonorHome";
+import { ReceiverHome } from "@components/recevier/ReceiverHome";
 
 export class App extends Component {
   constructor(props) {
@@ -159,7 +161,7 @@ export class App extends Component {
             <div className="min-vh-100 d-flex flex-column">
               <Route component={(props) => <Header {...props} />} />
               <div className="flex-grow-1">
-                <p>Welcome to plasma donor</p>
+                <Route exact path="/" component={DonorHome} />
               </div>
             </div>
           );
@@ -199,7 +201,7 @@ export class App extends Component {
             <div className="min-vh-100 d-flex flex-column">
               <Route component={(props) => <Header {...props} />} />
               <div className="flex-grow-1">
-                <p>Welcome to plasma receiver</p>
+                <Route exact path="/" component={ReceiverHome} />
               </div>
             </div>
           );
@@ -224,6 +226,7 @@ export class App extends Component {
                       <CompleteReceiverRegistration2 {...props} />
                     )}
                   />
+
                   <Redirect to="/" />
                 </Switch>
               </div>
