@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+$enable-shadows: true;
+$enable-gradients: true;
+$enable-caret: false;
+$enable-responsive-font-sizes: true;
+
+$theme-colors: (
+  "primary": #6892d5,
+  "light": #f8fcfb,
+  "secondary": #79d1c3,
+  "tertiary": #c9fdd7,
+  "danger": #ff0033,
+);
+
+$font-family-sans-serif:
+  // Safari for macOS and iOS (San Francisco)
+  -apple-system,
+  // Chrome < 56 for macOS (San Francisco)
+  BlinkMacSystemFont,
+  // Windows
+  "Segoe UI",
+  // Android
+  "Roboto",
+  // Basic web fallback
+  "Helvetica Neue",
+  Arial, sans-serif,
+  // Emoji fonts
+  "Apple Color Emoji",
+  "Segoe UI Emoji", "Segoe UI Symbol" !default;
+
+@import "bootstrap";
