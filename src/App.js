@@ -119,12 +119,23 @@ export class App extends Component {
         server
           .get("getType", await createToken())
           .then(({ data }) => {
-            this.setState({
-              loading: false,
-              authenticated: true,
-              user_type: data.type,
-              completed_registration_step2: data.hasData,
-            });
+            this.setState(
+              {
+                loading: false,
+                authenticated: true,
+                user_type: data.type,
+                completed_registration_step2: data.hasData,
+              },
+              () => {
+                if (data.type === "donor") {
+                  if (data.hasData) this.props.history.push("/");
+                  else this.props.history.push("/completeDonorRegistration");
+                } else {
+                  if (data.hasData) this.props.history.push("/");
+                  else this.props.history.push("/completeReceiverRegistration");
+                }
+              }
+            );
           })
           .catch((er) => {
             NotificationManager.error("Error fetching data");
@@ -145,32 +156,38 @@ export class App extends Component {
         if (this.state.completed_registration_step2) {
           // completed registration
           return (
-            <div>
+            <div className="min-vh-100 d-flex flex-column">
               <Route component={(props) => <Header {...props} />} />
-              <p>Welcome to plasma donor</p>
+              <div className="flex-grow-1">
+                <p>Welcome to plasma donor</p>
+              </div>
             </div>
           );
         } else {
           // not completed registration
           return (
-            <div>
+            <div className="min-vh-100 d-flex flex-column">
               <Route component={(props) => <Header {...props} />} />
-              <Switch>
-                <Route
-                  exact
-                  path="/completeDonorRegistration"
-                  component={(props) => (
-                    <CompleteDonorRegistration {...props} />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/completeDonorRegistration2"
-                  component={(props) => (
-                    <CompleteDonorRegistration2 {...props} />
-                  )}
-                />
-              </Switch>
+              <div className="flex-grow-1">
+                <Switch>
+                  <Route
+                    exact
+                    path="/completeDonorRegistration"
+                    component={(props) => (
+                      <CompleteDonorRegistration {...props} />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/completeDonorRegistration2"
+                    component={(props) => (
+                      <CompleteDonorRegistration2 {...props} />
+                    )}
+                  />
+
+                  <Redirect to="/" />
+                </Switch>
+              </div>
             </div>
           );
         }
@@ -179,32 +196,37 @@ export class App extends Component {
         if (this.state.completed_registration_step2) {
           // completed registration
           return (
-            <div>
+            <div className="min-vh-100 d-flex flex-column">
               <Route component={(props) => <Header {...props} />} />
-              <p>Welcome to plasma receiver</p>
+              <div className="flex-grow-1">
+                <p>Welcome to plasma receiver</p>
+              </div>
             </div>
           );
         } else {
           // not completed registration
           return (
-            <div>
+            <div className="min-vh-100 d-flex flex-column">
               <Route component={(props) => <Header {...props} />} />
-              <Switch>
-                <Route
-                  exact
-                  path="/completeReceiverRegistration"
-                  component={(props) => (
-                    <CompleteReceiverRegistration {...props} />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/completeReceiverRegistration2"
-                  component={(props) => (
-                    <CompleteReceiverRegistration2 {...props} />
-                  )}
-                />
-              </Switch>
+              <div className="flex-grow-1">
+                <Switch>
+                  <Route
+                    exact
+                    path="/completeReceiverRegistration"
+                    component={(props) => (
+                      <CompleteReceiverRegistration {...props} />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/completeReceiverRegistration2"
+                    component={(props) => (
+                      <CompleteReceiverRegistration2 {...props} />
+                    )}
+                  />
+                  <Redirect to="/" />
+                </Switch>
+              </div>
             </div>
           );
         }
