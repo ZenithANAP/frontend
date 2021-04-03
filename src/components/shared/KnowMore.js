@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 export class KnowMore extends Component {
   render() {
     return (
@@ -32,8 +33,8 @@ export class KnowMore extends Component {
             <div className="accordion" id="faq">
               <div className="card shadow">
                 <div className="card-header" id="faqhead1">
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="btn btn-header-link animate__fadeIn animate__animated"
                     data-toggle="collapse"
                     data-target="#faq1"
@@ -41,7 +42,7 @@ export class KnowMore extends Component {
                     aria-controls="faq1"
                   >
                     What is plasma and what is its function
-                  </a>
+                  </Link>
                 </div>
 
                 <div
@@ -69,8 +70,8 @@ export class KnowMore extends Component {
               </div>
               <div className="card shadow">
                 <div className="card-header" id="faqhead2">
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="btn btn-header-link collapsed animate__fadeIn animate__animated"
                     data-toggle="collapse"
                     data-target="#faq2"
@@ -78,7 +79,7 @@ export class KnowMore extends Component {
                     aria-controls="faq2"
                   >
                     How plasma therapy helps COVID-19 patients?
-                  </a>
+                  </Link>
                 </div>
 
                 <div
@@ -106,8 +107,8 @@ export class KnowMore extends Component {
               </div>
               <div className="card shadow">
                 <div className="card-header" id="faqhead3">
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="btn btn-header-link collapsed animate__fadeIn animate__animated"
                     data-toggle="collapse"
                     data-target="#faq3"
@@ -115,7 +116,7 @@ export class KnowMore extends Component {
                     aria-controls="faq3"
                   >
                     The technique of plasma donation
-                  </a>
+                  </Link>
                 </div>
 
                 <div
@@ -156,8 +157,8 @@ export class KnowMore extends Component {
               </div>
               <div className="card shadow">
                 <div className="card-header" id="faqhead4">
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="btn btn-header-link collapsed animate__fadeIn animate__animated"
                     data-toggle="collapse"
                     data-target="#faq4"
@@ -165,7 +166,7 @@ export class KnowMore extends Component {
                     aria-controls="faq4"
                   >
                     Who can donate plasma?
-                  </a>
+                  </Link>
                 </div>
 
                 <div
@@ -200,8 +201,8 @@ export class KnowMore extends Component {
               </div>
               <div className="card shadow">
                 <div className="card-header" id="faqhead5">
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="btn btn-header-link collapsed animate__fadeIn animate__animated"
                     data-toggle="collapse"
                     data-target="#faq5"
@@ -209,7 +210,7 @@ export class KnowMore extends Component {
                     aria-controls="faq5"
                   >
                     What tests are carried out before donating plasma?
-                  </a>
+                  </Link>
                 </div>
 
                 <div
@@ -230,8 +231,8 @@ export class KnowMore extends Component {
               </div>
               <div className="card shadow">
                 <div className="card-header" id="faqhead6">
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="btn btn-header-link collapsed animate__fadeIn animate__animated"
                     data-toggle="collapse"
                     data-target="#faq6"
@@ -240,7 +241,7 @@ export class KnowMore extends Component {
                   >
                     How many people would be benefitted by one person’s
                     donation?
-                  </a>
+                  </Link>
                 </div>
 
                 <div
@@ -257,8 +258,8 @@ export class KnowMore extends Component {
               </div>
               <div className="card shadow">
                 <div className="card-header" id="faqhead7">
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="btn btn-header-link collapsed animate__fadeIn animate__animated"
                     data-toggle="collapse"
                     data-target="#faq7"
@@ -266,7 +267,7 @@ export class KnowMore extends Component {
                     aria-controls="faq7"
                   >
                     How often can a recovered patient donate plasma?
-                  </a>
+                  </Link>
                 </div>
 
                 <div
@@ -285,8 +286,8 @@ export class KnowMore extends Component {
               </div>
               <div className="card shadow">
                 <div className="card-header" id="faqhead8">
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="btn btn-header-link collapsed animate__fadeIn animate__animated"
                     data-toggle="collapse"
                     data-target="#faq8"
@@ -294,7 +295,7 @@ export class KnowMore extends Component {
                     aria-controls="faq8"
                   >
                     What to do before donating plasma
-                  </a>
+                  </Link>
                 </div>
 
                 <div
