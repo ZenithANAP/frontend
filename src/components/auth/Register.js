@@ -52,6 +52,8 @@ export class Register extends Component {
               )
               .then(({ data }) => {
                 NotificationManager.success("Account created");
+                auth.signOut();
+                this.props.history.push("/login");
               })
               .catch((er) => {
                 user.delete();
