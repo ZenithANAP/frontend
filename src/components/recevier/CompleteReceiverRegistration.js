@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { auth } from "@config/firebase config";
+import Loading from "@components/shared/Loading";
+import server from "@config/server";
+import { NotificationManager } from "react-notifications";
 
 export class CompleteReceiverRegistration extends Component {
   constructor(props) {
@@ -8,38 +12,99 @@ export class CompleteReceiverRegistration extends Component {
     this.state = {
       username: "",
       phone: "",
-      aadhar: "",
+      aadhar_card: "",
       address: "",
       blood_group: "",
       gender: "",
       age: "",
       weight: "",
       medical_conditions: "",
-      covid_report: "",
-      medical_report: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUserInput = this.handleUserInput.bind(this);
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    console.log("form submitted!");
-  }
+  getToken = async () => {
+    const user = auth.currentUser;
+    const token = user && (await user.getIdToken());
+    const payloadHeader = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    return payloadHeader;
+  };
+
+  handleChange = (e) => {
+    let options = e.target.options;
+    let value = [];
+    for (let i = 0, l = options.length; i < l; i++) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    this.setState({ medical_conditions: value });
+  };
 
   handleUserInput(e) {
     const name = e.target.name;
     const value = e.target.value;
     this.setState({ [name]: value });
-    console.log(value, name);
   }
 
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    this.setState({ loading: true }, async () => {
+      NotificationManager.info("Submitting form");
+      // let formData = new FormData();
+      // formData.append("username", this.state.username);
+      // formData.append("phone", this.state.phone);
+      // formData.append("aadhar_card", this.state.aadhar_card);
+      // formData.append("address", this.state.address);
+      // formData.append("blood_group", this.state.blood_group);
+      // formData.append("gender", this.state.gender);
+      // formData.append("age", this.state.age);
+      // formData.append("weight", this.state.weight);
+      // formData.append("medical_conditions", this.state.medical_conditions);
+      let formData = {
+        username: this.state.username,
+        phone: this.state.phone,
+        aadhar_card: this.state.aadhar_card,
+        address: this.state.address,
+        blood_group: this.state.blood_group,
+        gender: this.state.gender,
+        age: this.state.age,
+        weight: this.state.weight,
+        medical_conditions: this.state.medical_conditions,
+        recovery_date: this.state.recovery_date,
+      };
+      console.log(formData);
+
+      // the image field name should be similar to your api endpoint field name
+      // in my case here the field name is customFile
+
+      server
+        .post("receivers/add1", formData, await this.getToken())
+        .then(({ formData }) => {
+          console.log(formData);
+          NotificationManager.success(formData);
+          this.props.history.push("/completeReceiverRegistration2");
+        })
+        .catch((err) => {
+          NotificationManager.error(err.message);
+          this.setState({ loading: false });
+        });
+    });
+  };
+
   render() {
+    if (this.state.loading) return <Loading />;
     return (
       <div>
         <p
-          className=" container text-center font-weight-bold "
+          className="container text-center font-weight-bold "
           style={{
             fontSize: "1.5rem",
             padding: "20px",
@@ -87,7 +152,7 @@ export class CompleteReceiverRegistration extends Component {
             </div>
             <div className="form-group">
               <label
-                htmlFor="aadhar"
+                htmlFor="aadhar_card"
                 style={{ fontSize: "1.5rem", color: "#201140" }}
               >
                 Aadhar Number:
@@ -95,8 +160,8 @@ export class CompleteReceiverRegistration extends Component {
               <input
                 className="form-control"
                 type="text"
-                name="aadhar"
-                id="aadhar"
+                name="aadhar_card"
+                id="aadhar_card"
                 placeholder="Enter your Aadhar Number: "
                 required
                 onChange={this.handleUserInput}
@@ -237,101 +302,25 @@ export class CompleteReceiverRegistration extends Component {
               />
             </div>
             <div className="form-group">
-              <label
-                htmlFor="address"
-                style={{ fontSize: "1.5rem", color: "#201140" }}
-              >
-                Medical Conditions:
-              </label>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Diabetes"
-                  id="diabetes"
-                  onChange={this.handleUserInput}
-                />
-                <label className="form-check-label" htmlFor="diabetes">
-                  Diabetes
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Hypertension"
-                  id="hypertension"
-                  onChange={this.handleUserInput}
-                />
-                <label className="form-check-label" htmlFor="hypertension">
-                  Hypertension
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Cancer"
-                  id="cancer"
-                  onChange={this.handleUserInput}
-                />
-                <label className="form-check-label" htmlFor="cancer">
-                  Cancer
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value="Nah. I'm healthy"
-                  id="none"
-                  onChange={this.handleUserInput}
-                />
-                <label className="form-check-label" htmlFor="none">
-                  Nah. I'm healthy
-                </label>
-              </div>
-              {/* comorbidities such as diabetes, hypertension, and cancer are also excluded. */}
-              {/* <textarea
-                className="form-control"
+              <select
+                className="custom-select"
+                multiple
                 id="medical_conditions"
                 name="medical_conditions"
-                placeholder="Mention any medical conditions you have/had experienced: "
-                rows="3"
-                required
-                onChange={this.handleUserInput}
-              /> */}
-            </div>
-            <div className="form-group">
-              <label
-                htmlFor="covid_report"
-                style={{ fontSize: "1.5rem", color: "#201140" }}
+                onChange={this.handleChange}
               >
-                Covid Report
-              </label>
-              <input
-                type="file"
-                className="form-control-file"
-                id="covid_report"
-              />
-            </div>
-            <div
-              className="form-group"
-              style={{ fontSize: "1.5rem", color: "#201140" }}
-            >
-              <label htmlFor="medical_report">Medical Report</label>
-              <input
-                type="file"
-                className="form-control-file"
-                id="medical_report"
-              />
+                <option selected>Medical conditions</option>
+                <option value="diabetes">Diabetes</option>
+                <option value="hypertension">Hypertension</option>
+                <option value="cancer">Cancer</option>
+                <option value="comorbidity">Comorbidity</option>
+                <option value="fine">Fine</option>
+              </select>
             </div>
             <div className="form-group text-center">
-              <input
-                type="submit"
-                className="btn btn-outline-success"
-                value="Submit"
-              />
+              <button type="submit" className="btn btn-outline-success">
+                Submit
+              </button>
             </div>
           </form>
         </div>

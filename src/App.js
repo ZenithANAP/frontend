@@ -11,9 +11,11 @@ import { Redirect, Route, Switch } from "react-router";
 import "./App.scss";
 import { NotificationManager } from "react-notifications";
 import createToken from "@config/headerCreator";
-import { CompleteDonorRegistration } from "@components/donor/CompleteDonorRegistration";
+import CompleteDonorRegistration from "@components/donor/CompleteDonorRegistration";
+import CompleteDonorRegistration2 from "@components/donor/CompleteDonorRegistration2";
 import { Header } from "@components/shared/Header";
-import { CompleteReceiverRegistration } from "@components/recevier/CompleteReceiverRegistration";
+import CompleteReceiverRegistration from "@components/recevier/CompleteReceiverRegistration";
+import CompleteReceiverRegistration2 from "@components/recevier/CompleteReceiverRegistration2";
 
 export class App extends Component {
   constructor(props) {
@@ -153,9 +155,22 @@ export class App extends Component {
           return (
             <div>
               <Route component={(props) => <Header {...props} />} />
-              <Route
-                component={(props) => <CompleteDonorRegistration {...props} />}
-              />
+              <Switch>
+                <Route
+                  exact
+                  path="/completeDonorRegistration"
+                  component={(props) => (
+                    <CompleteDonorRegistration {...props} />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/completeDonorRegistration2"
+                  component={(props) => (
+                    <CompleteDonorRegistration2 {...props} />
+                  )}
+                />
+              </Switch>
             </div>
           );
         }
@@ -174,7 +189,22 @@ export class App extends Component {
           return (
             <div>
               <Route component={(props) => <Header {...props} />} />
-              <CompleteReceiverRegistration />
+              <Switch>
+                <Route
+                  exact
+                  path="/completeReceiverRegistration"
+                  component={(props) => (
+                    <CompleteReceiverRegistration {...props} />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/completeReceiverRegistration2"
+                  component={(props) => (
+                    <CompleteReceiverRegistration2 {...props} />
+                  )}
+                />
+              </Switch>
             </div>
           );
         }
