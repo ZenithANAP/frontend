@@ -63,7 +63,7 @@ export class CompleteReceiverRegistration2 extends Component {
         .post("receivers/add2", formData, await this.getToken())
         .then(({ data }) => {
           NotificationManager.success(data);
-          this.props.location.reload();
+          // this.props.location.reload();
         })
         .catch((err) => {
           NotificationManager.error(err.message);

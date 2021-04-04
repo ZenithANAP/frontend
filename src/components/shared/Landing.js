@@ -26,12 +26,12 @@ export class Landing extends Component {
             <div className="d-flex flex-column p-5">
               <Link to="/register">
                 <button className="btn w-100 shadow btn-outline-pinky my-3 mx-2 font-weight-bold py-2 animate__fadeIn animate__animated">
-                  Are you a Donor?
+                  Ready to be a member?
                 </button>
               </Link>
-              <Link to="/register">
+              <Link to="/login">
                 <button className="btn w-100 shadow btn-outline-pinky my-3 mx-2 font-weight-bold py-2 animate__fadeIn animate__animated">
-                  Are you a Receiver?
+                  Are you a member?
                 </button>
               </Link>
               <Link to="/knowmore">

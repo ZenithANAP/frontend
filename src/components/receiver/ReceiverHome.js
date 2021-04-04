@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { NotificationManager } from "react-notifications";
 import { connect } from "react-redux";
 import _ from "lodash";
-export class DonorHome extends Component {
+export class ReceiverHome extends Component {
   constructor(props) {
     super(props);
 
@@ -47,24 +47,23 @@ export class DonorHome extends Component {
                 justifyContent: "center",
               }}
               className="rounded-circle bg-primary p-0 m-0 shadow"
-              role="button"
-              onClick={() => this.props.history.push("/yourdonations")}
             >
               <span>👏</span>
             </div>
             {this.state.banks.length !== 0 ? (
-              this.state.banks.map((bank, j) => (
+              this.state.banks.map((bank, i) => (
                 <div
-                  key={j}
                   className="card my-2 shadow border-0"
                   style={{ borderRadius: "0.4rem" }}
                 >
                   <div className="card-body">
                     <div className="mr-2" style={{ fontSize: "1.5rem" }}>
-                      Bank Name: {bank.name}
+                      <span className="font-weight-bold">Bank Name:</span>{" "}
+                      {bank.name}
                     </div>
                     <div className="mr-2" style={{ fontSize: "1.5rem" }}>
-                      Bank Location:{bank.city}
+                      <span className="font-weight-bold">Bank Location: </span>{" "}
+                      {bank.city}
                     </div>
                     <button
                       type="button"
@@ -111,20 +110,22 @@ export class DonorHome extends Component {
                             </h5>
                             <button
                               type="button"
-                              className="close text-white"
+                              className="close text-white "
                               data-dismiss="modal"
                               aria-label="Close"
                             >
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
-                          <div className="modal-body px-3">
-                            <h5 className="mx-1">Availability: </h5>
+                          <div className="modal-body" px-3>
+                            <h5 className="mx-1 font-weight-bold">
+                              Availability:{" "}
+                            </h5>
                             <div>
                               {_.map(bank.availability, function (value, key) {
                                 return { blood_type: key, quantity: value };
-                              }).map((p, i) => (
-                                <p key={i}>
+                              }).map((p) => (
+                                <p>
                                   {/* {JSON.stringify(p)} */}
                                   <span className="ml-2">
                                     {p["blood_type"]} : {p["quantity"]} l
@@ -176,4 +177,4 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(DonorHome);
+export default connect(mapStateToProps, mapDispatchToProps)(ReceiverHome);

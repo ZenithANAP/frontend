@@ -13,12 +13,12 @@ import { NotificationManager } from "react-notifications";
 import createToken from "@config/headerCreator";
 import CompleteDonorRegistration from "@components/donor/CompleteDonorRegistration";
 import CompleteDonorRegistration2 from "@components/donor/CompleteDonorRegistration2";
-import { Header } from "@components/shared/Header";
-import CompleteReceiverRegistration from "@components/recevier/CompleteReceiverRegistration";
-import CompleteReceiverRegistration2 from "@components/recevier/CompleteReceiverRegistration2";
-import { DonorHome } from "@components/donor/DonorHome";
-import { ReceiverHome } from "@components/recevier/ReceiverHome";
-
+import Header from "@components/shared/Header";
+import CompleteReceiverRegistration from "@components/receiver/CompleteReceiverRegistration";
+import CompleteReceiverRegistration2 from "@components/receiver/CompleteReceiverRegistration2";
+import DonorHome from "@components/donor/DonorHome";
+import ReceiverHome from "@components/receiver/ReceiverHome";
+import YourDonations from "@components/donor/YourDonations";
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -118,9 +118,11 @@ export class App extends Component {
   componentDidMount() {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
+        // console.log(user.uid);
         server
           .get("getType", await createToken())
           .then(({ data }) => {
+            // console.log(data);
             this.setState(
               {
                 loading: false,
@@ -140,7 +142,8 @@ export class App extends Component {
             );
           })
           .catch((er) => {
-            NotificationManager.error("Error fetching data");
+            // NotificationManager.error("Error fetching data");
+            NotificationManager.error(er.message);
             auth.signOut();
           });
       } else {
@@ -162,6 +165,7 @@ export class App extends Component {
               <Route component={(props) => <Header {...props} />} />
               <div className="flex-grow-1">
                 <Route exact path="/" component={DonorHome} />
+                <Route exact path="/yourdonations" component={YourDonations} />
               </div>
             </div>
           );
@@ -186,7 +190,7 @@ export class App extends Component {
                       <CompleteDonorRegistration2 {...props} />
                     )}
                   />
-
+                  <Route exact path="/" component={ReceiverHome} />
                   <Redirect to="/" />
                 </Switch>
               </div>

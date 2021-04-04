@@ -115,3 +115,6 @@
   line-height: 30px;
   // color: white;
 }
+
+.details { transition: all .3s ease-in-out; }
+.details:hover { transform: scale(1.1); }
